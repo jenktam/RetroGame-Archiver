@@ -9,11 +9,6 @@ class GamesContainer extends Component {
   constructor(props) {
     super(props)
 
-    this.state = {
-      selectedGame: {},
-      searchBar: ''
-    }
-
     this.toggleModal = this.toggleModal.bind(this)
     this.deleteGame = this.deleteGame.bind(this)
     this.setSearchBar = this.setSearchBar.bind(this)
@@ -26,9 +21,8 @@ class GamesContainer extends Component {
 
   //toggle between games
   toggleModal(index) {
-    this.setState({
-      selectedGame: this.state.games[index]
-    })
+    // We pass the game given the index parameter passed from the view button
+    this.props.gamesActions.showSelectedGame(this.props.games[index]);
     $('#game-model').modal()
   }
 
@@ -53,19 +47,17 @@ class GamesContainer extends Component {
     .catch(console.error.bind(console))
   }
 
-  setSearchBar(event) {
-    this.setState({
-      searchBar: event.target.value.toLowerCase() //ensures search isn't case sensitive
-    })
+  // It now dispatches the action and pass the search bar content as parameter
+  setSearchBar (event) {
+    this.props.gamesActions.setSearchBar(event.target.value.toLowerCase());
   }
 
   render() {
-    const { selectedGame, searchBar } = this.state
-    const { games } = this.props
+    const { games, searchBar, selectedGame } = this.props
     console.log("games in GamesContainer:", games)
     return (
       <div>
-        <Modal game={selectedGame} />
+        <Modal game={ selectedGame } />
         <GamesListManager
           games = { games }
           searchBar = { searchBar }
@@ -79,7 +71,9 @@ class GamesContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  games: state.getIn(['games', 'list'], Immutable.List()).toJS()
+  games: state.getIn(['games', 'list'], Immutable.List()).toJS(),
+  searchBar: state.getIn(['games', 'searchBar']), //retrieve searchBar content too
+  selectedGame: state.getIn(['games', 'selectedGame'], Immutable.List()).toJS() //map selectedGame from state to props so now available as this.props.selectedGame
 })
 
 const mapDispatchToProps = dispatch => ({

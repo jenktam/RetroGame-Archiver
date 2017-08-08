@@ -2,7 +2,9 @@
 import {
   GET_GAMES,
   GET_GAMES_SUCCESS,
-  GET_GAMES_FAILURE
+  GET_GAMES_FAILURE,
+  SET_SEARCH_BAR,
+  SHOW_SELECTED_GAME
 } from '../constants/games';
 
 // action creators
@@ -28,9 +30,24 @@ function getGamesFailure () {
   };
 }
 
+function setSearchBar (keyword) {
+  return {
+    type: SET_SEARCH_BAR,
+    keyword
+  };
+}
+
+function showSelectedGame (game) {
+  return {
+    type: SHOW_SELECTED_GAME,
+    game
+  };
+}
 
 export {
   getGames,
   getGamesSuccess,
-  getGamesFailure
+  getGamesFailure,
+  setSearchBar,
+  showSelectedGame
 };
