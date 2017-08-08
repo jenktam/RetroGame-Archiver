@@ -8,7 +8,7 @@ const loaders = require('./webpack-loaders')
 //common configuation set up, which defines common properties for development(using webpack-dev-server) and build(using bundle served by Node.js)
 const common = {
   entry: { //entry file index.js in /client/src
-    app: PATHS.src
+    app: ['babel-polyfill', PATHS.src]
   },
   output: { //output defines where bundle output gets created
     path: PATHS.dist,
