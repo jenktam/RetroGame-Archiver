@@ -38,7 +38,7 @@ export default class AddGameContainer extends Component {
       // We go back to the games list view
       hashHistory.push('/games');
     })
-    .catch(console.error.bind(console))
+    .catch(console.error.bind("Error!!:", console))
   }
 
   uploadPicture () {

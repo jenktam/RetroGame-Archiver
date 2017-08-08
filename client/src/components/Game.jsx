@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 
 export default class Game extends Component {
   render(){
-    const { _id, i, name, description, picture, toggleModel, deleteGame } = this.props
+    const { _id, i, name, description, picture, toggleModal, deleteGame } = this.props
     return (
       <div className="col-md-4">
         <div className="thumbnail">

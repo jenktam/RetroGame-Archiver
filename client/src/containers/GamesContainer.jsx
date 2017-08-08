@@ -40,6 +40,7 @@ export default class GamesContianer extends Component {
     .then(data => this.setState({
       games: data
     }))
+    .catch(console.error.bind(console))
   }
 
   deleteGame(id) {
@@ -55,6 +56,7 @@ export default class GamesContianer extends Component {
         games: this.state.games.filter( game => game._id !== id )
       })
     })
+    .catch(console.error.bind(console))
   }
 
   setSearchBar(event) {
@@ -65,7 +67,7 @@ export default class GamesContianer extends Component {
 
   render() {
     const { games, selectedGame, searchBar } = this.state
-    return(
+    return (
       <div>
         <Modal game={selectedGame} />
         <GamesListManager

@@ -4,15 +4,16 @@ import Game from './Game'
 
 export default class GamesListManager extends Component {
   render(){
-    const { games, searchBar, setSearchBar, toggleModal, deleteGame } = this.state.games
-    return(
+    const { games, searchBar, setSearchBar, toggleModal, deleteGame } = this.props
+    return (
       <div className="container scrollable">
         <div className="row text-left">
           <Link to="/games/add" className="btn btn-danger">Add a new Game!</Link>
         </div>
         <div className="row">
           <input
-            type="search" placeholder="Search by Name" className="form-control search-bar" onKeyUp={setSearchBar} />
+            type="search"
+            placeholder="Search by Name" className="form-control search-bar" onKeyUp={setSearchBar} />
         </div>
         <div className="row">
         {
