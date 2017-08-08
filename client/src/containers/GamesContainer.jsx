@@ -31,20 +31,8 @@ class GamesContainer extends Component {
     this.props.gamesActions.getGames()
   }
 
-  deleteGame(id) {
-    fetch(`http://localhost:8080/games/${id}`, {
-      headers: new Headers({
-        'Content-Type': 'application/json'
-      }),
-      method: 'DELETE'
-    })
-    .then(res => res.json())
-    .then(res => {
-      this.setState({
-        games: this.state.games.filter( game => game._id !== id )
-      })
-    })
-    .catch(console.error.bind(console))
+  deleteGame (id) { // It simplies dispatches the action including the game id
+    this.props.gamesActions.deleteGame(id);
   }
 
   // It now dispatches the action and pass the search bar content as parameter

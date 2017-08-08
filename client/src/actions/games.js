@@ -4,7 +4,10 @@ import {
   GET_GAMES_SUCCESS,
   GET_GAMES_FAILURE,
   SET_SEARCH_BAR,
-  SHOW_SELECTED_GAME
+  SHOW_SELECTED_GAME,
+  DELETE_GAME,
+  DELETE_GAME_SUCCESS,
+  DELETE_GAME_FAILURE
 } from '../constants/games';
 
 // action creators
@@ -44,10 +47,32 @@ function showSelectedGame (game) {
   };
 }
 
+
+function deleteGame () {
+  return {
+    type: DELETE_GAME
+  };
+}
+// In case of succesful deletion the action is dispatched to the reducer
+function deleteGamesSuccess (games) {
+  return {
+    type: DELETE_GAME_SUCCESS,
+    games
+  };
+}
+// In case of failure the saga dispatches DELETE_GAME_FAILURE instead
+function deleteGameFailure () {
+  return {
+    type: DELETE_GAME_FAILURE
+  };
+}
 export {
   getGames,
   getGamesSuccess,
   getGamesFailure,
   setSearchBar,
-  showSelectedGame
+  showSelectedGame,
+  deleteGame,
+  deleteGamesSuccess,
+  deleteGameFailure
 };
