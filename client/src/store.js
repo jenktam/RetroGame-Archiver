@@ -15,7 +15,7 @@ const configureStore = () => {
     applyMiddleware(sagaMiddleware)
   );
 
-  // Start the sagaMiddleware by calling the run function.
+  // Start the sagaMiddleware by calling the run function
   sagaMiddleware.run(rootSaga);
 
   return store; // Return the state

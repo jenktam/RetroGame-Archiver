@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux' // bindActionCreators comes handy to wrap action creators in dispatch calls
+import Immutable from 'immutable'
 import { Modal, GamesListManager } from '../components'
+import * as gamesActionCreators from '../actions/games'; // we import all the action-creators to be binded with bindActionCreators
 
-export default class GamesContianer extends Component {
+class GamesContainer extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      games: [],
       selectedGame: {},
       searchBar: ''
     }
@@ -31,16 +34,7 @@ export default class GamesContianer extends Component {
 
   //get all games
   getGames(){
-    fetch('http://localhost:8080/games', {
-      headers: new Headers({
-        'Content-Type': 'application/json'
-      })
-    })
-    .then(res => res.json())
-    .then(data => this.setState({
-      games: data
-    }))
-    .catch(console.error.bind(console))
+    this.props.gamesActions.getGames()
   }
 
   deleteGame(id) {
@@ -66,7 +60,9 @@ export default class GamesContianer extends Component {
   }
 
   render() {
-    const { games, selectedGame, searchBar } = this.state
+    const { selectedGame, searchBar } = this.state
+    const { games } = this.props
+    console.log("games in GamesContainer:", games)
     return (
       <div>
         <Modal game={selectedGame} />
@@ -81,3 +77,13 @@ export default class GamesContianer extends Component {
     )
   }
 }
+
+const mapStateToProps = state => ({
+  games: state.getIn(['games', 'list'], Immutable.List()).toJS()
+})
+
+const mapDispatchToProps = dispatch => ({
+  gamesActions: bindActionCreators(gamesActionCreators, dispatch)
+}
+)
+export default connect(mapStateToProps, mapDispatchToProps)(GamesContainer)

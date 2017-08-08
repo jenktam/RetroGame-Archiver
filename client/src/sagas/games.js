@@ -15,6 +15,7 @@ const fetchGames = () => {
 };
 
 // yield call to fetchGames is in a try catch to control the flow even when the promise rejects
+function* getGames () {
   try {
     const games = yield call(fetchGames);
     yield put(getGamesSuccess(games));
